@@ -9,54 +9,55 @@ import es.ulpgc.eite.cleancode.clickcounter.app.MasterToDetailState;
 
 public interface MasterContract {
 
-  interface View {
-    void injectPresenter(Presenter presenter);
+    interface View {
+        void injectPresenter(Presenter presenter);
 
-    void onDataUpdated(MasterViewModel viewModel);
-  }
+        void onDataUpdated(MasterViewModel viewModel);
+    }
 
-  interface Presenter {
-      void onListItemClicked(CounterData item);
+    interface Presenter {
 
-      void injectView(WeakReference<View> view);
+        void injectView(WeakReference<View> view);
 
-    void injectModel(Model model);
+        void injectModel(Model model);
 
-    void injectRouter(Router router);
+        void injectRouter(Router router);
 
-    void onResume();
+        void onResume();
 
-    void onStart();
+        void onStart();
 
-    void onRestart();
+        void onRestart();
 
-    void onBackPressed();
+        void onBackPressed();
 
-    void onPause();
+        void onPause();
 
-    void onDestroy();
+        void onDestroy();
 
-    void onButtonPressed();
-  }
+        void onButtonPressed();
 
-  interface Model {
-    List<CounterData> getStoredData();
+        void selectProductListData(CounterData item);
+    }
 
-      void createCounter();
+    interface Model {
+        List<CounterData> getStoredData();
 
-      void onDataFromNextScreen(String data);
+        void createCounter();
 
-    void onRestartScreen(List<CounterData> datasource);
+        void onDataFromNextScreen(String data);
 
-    void onDataFromPreviousScreen(String data);
-  }
+        void onRestartScreen(List<CounterData> datasource);
 
-  interface Router {
-    void navigateToDetailScreen();
+        void onDataFromPreviousScreen(String data);
+    }
 
-    void passStateToNextScreen(MasterToDetailState state);
+    interface Router {
+        void navigateToDetailScreen();
 
-    DetailToMasterState getStateFromNextScreen();
+        void passDataToDetailScreen(CounterData counterData);
 
-  }
+        DetailToMasterState getStateFromNextScreen();
+
+    }
 }

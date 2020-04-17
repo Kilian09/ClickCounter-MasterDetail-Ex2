@@ -85,12 +85,11 @@ public class MasterPresenter implements MasterContract.Presenter {
     }
 
     @Override
-    public void onListItemClicked(CounterData item) {
-        DetailState state = new DetailState();
-        state.currentCounter = item;
-
+    public void selectProductListData(CounterData item) {
         router.navigateToDetailScreen();
+        router.passDataToDetailScreen(item);
     }
+
 
     @Override
     public void injectView(WeakReference<MasterContract.View> view) {

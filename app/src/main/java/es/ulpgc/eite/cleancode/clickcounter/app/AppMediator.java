@@ -2,6 +2,7 @@ package es.ulpgc.eite.cleancode.clickcounter.app;
 
 import android.app.Application;
 
+import es.ulpgc.eite.cleancode.clickcounter.data.CounterData;
 import es.ulpgc.eite.cleancode.clickcounter.detail.DetailState;
 import es.ulpgc.eite.cleancode.clickcounter.master.MasterState;
 
@@ -12,6 +13,8 @@ public class AppMediator extends Application {
 
   private DetailToMasterState detailToMasterState;
   private MasterToDetailState masterToDetailState;
+
+  private CounterData counterData;
 
   @Override
   public void onCreate() {
@@ -44,5 +47,13 @@ public class AppMediator extends Application {
 
   public DetailToMasterState getNextMasterScreenState() {
     return detailToMasterState;
+  }
+
+  public CounterData getCounterData() {
+    return counterData;
+  }
+
+  public void setCounterData(CounterData counterData) {
+    this.counterData = counterData;
   }
 }

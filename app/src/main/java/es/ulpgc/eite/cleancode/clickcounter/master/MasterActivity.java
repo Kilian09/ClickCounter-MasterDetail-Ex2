@@ -1,92 +1,111 @@
 package es.ulpgc.eite.cleancode.clickcounter.master;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.ulpgc.eite.cleancode.clickcounter.R;
 import es.ulpgc.eite.cleancode.clickcounter.data.CounterData;
 
 public class MasterActivity
-    extends AppCompatActivity implements MasterContract.View {
+        extends AppCompatActivity implements MasterContract.View {
 
-  public static String TAG = MasterActivity.class.getSimpleName();
+    public static String TAG = MasterActivity.class.getSimpleName();
 
-  private MasterContract.Presenter presenter;
+    private MasterContract.Presenter presenter;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_master);
-    getSupportActionBar().setTitle(R.string.app_name);
+    private ListView listView;
+    private MasterAdapter listAdapter;
 
-    // do the setup
-    MasterScreen.configure(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_master);
+        getSupportActionBar().setTitle(R.string.app_name);
 
-    if (savedInstanceState == null) {
-      presenter.onStart();
+        // do the setup
+        MasterScreen.configure(this);
 
-    } else {
-      presenter.onRestart();
+        if (savedInstanceState == null) {
+            presenter.onStart();
+
+        } else {
+            presenter.onRestart();
+        }
     }
-  }
 
-  @Override
-  protected void onResume() {
-    super.onResume();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    // load the data
-    presenter.onResume();
-  }
+        // load the data
+        presenter.onResume();
+    }
 
-  @Override
-  public void onBackPressed() {
-    super.onBackPressed();
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-    presenter.onBackPressed();
-  }
+        presenter.onBackPressed();
+    }
 
-  @Override
-  protected void onPause() {
-    super.onPause();
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-    presenter.onPause();
-  }
+        presenter.onPause();
+    }
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-    presenter.onDestroy();
-  }
-
-
-  public void onButtonPressed(View view) {
-    presenter.onButtonPressed();
-  }
+        presenter.onDestroy();
+    }
 
 
-  @Override
-  public void onDataUpdated(MasterViewModel viewModel) {
-    //Log.e(TAG, "onDataUpdated()");
+    public void onButtonPressed(View view) {
+        presenter.onButtonPressed();
+    }
 
-    // deal with the datasource
-    ((ListView) findViewById(R.id.list)).setAdapter(new MasterAdapter(
-            this, viewModel.datasource, new View.OnClickListener() {
 
-          @Override
-          public void onClick(View view) {
-            CounterData data = (CounterData) view.getTag();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-          }
-        })
-    );
-  }
+    @Override
+    public void onDataUpdated(MasterViewModel viewModel) {
+        //Log.e(TAG, "onDataUpdated()");
 
-  @Override
-  public void injectPresenter(MasterContract.Presenter presenter) {
-    this.presenter = presenter;
-  }
+        // deal with the datasource
+        ((ListView) findViewById(R.id.list)).setAdapter(new MasterAdapter(
+                        this, viewModel.datasource, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        CounterData data = (CounterData) view.getTag();
+                        presenter.selectProductListData(data);
+                    }
+                })
+        );
+    }
+
+    @Override
+    public void injectPresenter(MasterContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 }

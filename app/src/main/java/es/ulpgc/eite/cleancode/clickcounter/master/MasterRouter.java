@@ -6,6 +6,7 @@ import android.content.Intent;
 import es.ulpgc.eite.cleancode.clickcounter.app.AppMediator;
 import es.ulpgc.eite.cleancode.clickcounter.app.DetailToMasterState;
 import es.ulpgc.eite.cleancode.clickcounter.app.MasterToDetailState;
+import es.ulpgc.eite.cleancode.clickcounter.data.CounterData;
 import es.ulpgc.eite.cleancode.clickcounter.detail.DetailActivity;
 
 public class MasterRouter implements MasterContract.Router {
@@ -27,8 +28,8 @@ public class MasterRouter implements MasterContract.Router {
   }
 
   @Override
-  public void passStateToNextScreen(MasterToDetailState state) {
-    mediator.setNextMasterScreenState(state);
+  public void passDataToDetailScreen(CounterData counterData) {
+    mediator.setCounterData(counterData);
   }
 
 

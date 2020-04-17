@@ -9,74 +9,77 @@ import androidx.appcompat.app.AppCompatActivity;
 import es.ulpgc.eite.cleancode.clickcounter.R;
 
 public class DetailActivity
-    extends AppCompatActivity implements DetailContract.View {
+        extends AppCompatActivity implements DetailContract.View {
 
-  public static String TAG = DetailActivity.class.getSimpleName();
+    public static String TAG = DetailActivity.class.getSimpleName();
 
-  private DetailContract.Presenter presenter;
+    private DetailContract.Presenter presenter;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_detail);
-    getSupportActionBar().setTitle(R.string.app_name);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+        getSupportActionBar().setTitle(R.string.app_name);
 
-    // do the setup
-    DetailScreen.configure(this);
+        // do the setup
+        DetailScreen.configure(this);
 
-    if (savedInstanceState == null) {
-      presenter.onStart();
+        if (savedInstanceState == null) {
+            presenter.onStart();
 
-    } else {
-      presenter.onRestart();
+        } else {
+            presenter.onRestart();
+        }
     }
-  }
 
-  @Override
-  protected void onResume() {
-    super.onResume();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    // load the data
-    presenter.onResume();
-  }
+        // load the data
+        presenter.onResume();
+    }
 
-  @Override
-  public void onBackPressed() {
-    super.onBackPressed();
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-    presenter.onBackPressed();
-  }
+        presenter.onBackPressed();
+    }
 
-  @Override
-  protected void onPause() {
-    super.onPause();
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-    presenter.onPause();
-  }
+        presenter.onPause();
+    }
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-    presenter.onDestroy();
-  }
-
-
-  public void onButtonPressed(View view) {
-    presenter.onButtonPressed();
-  }
+        presenter.onDestroy();
+    }
 
 
-  @Override
-  public void onDataUpdated(DetailViewModel viewModel) {
-    //Log.e(TAG, "onDataUpdated()");
+    public void onButtonPressed(View view) {
+        presenter.onButtonPressed();
+    }
 
-    // deal with the data
-    ((TextView) findViewById(R.id.counter)).setText(viewModel.data);
-  }
 
-  @Override
-  public void injectPresenter(DetailContract.Presenter presenter) {
-    this.presenter = presenter;
-  }
+    @Override
+    public void onDataUpdated(DetailViewModel viewModel) {
+        //Log.e(TAG, "onDataUpdated()");
+
+        // deal with the data
+        ((TextView) findViewById(R.id.counter)).setText(viewModel.data);
+        //int count = viewModel.currentCounter.value;
+        //((TextView) findViewById(R.id.counter)).setText(Integer.toString(count));
+        //((TextView) findViewById(R.id.clicks)).setText(Integer.toString(viewModel.clicks));
+    }
+
+    @Override
+    public void injectPresenter(DetailContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 }
