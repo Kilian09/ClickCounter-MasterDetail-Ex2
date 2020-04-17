@@ -48,7 +48,7 @@ public interface MasterContract {
   }
 
   interface Router {
-    void navigateToNextScreen();
+    void navigateToDetailScreen();
 
     void passStateToNextScreen(MasterToDetailState state);
 
