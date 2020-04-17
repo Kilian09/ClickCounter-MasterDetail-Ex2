@@ -53,4 +53,6 @@ public class CounterData {
   public String toString() {
     return String.valueOf(value);
   }
+
+  public void addOneClick(){value++;}
 }
