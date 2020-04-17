@@ -16,7 +16,9 @@ public interface MasterContract {
   }
 
   interface Presenter {
-    void injectView(WeakReference<View> view);
+      void onListItemClicked(CounterData item);
+
+      void injectView(WeakReference<View> view);
 
     void injectModel(Model model);
 
@@ -40,7 +42,9 @@ public interface MasterContract {
   interface Model {
     List<CounterData> getStoredData();
 
-    void onDataFromNextScreen(String data);
+      void createCounter();
+
+      void onDataFromNextScreen(String data);
 
     void onRestartScreen(List<CounterData> datasource);
 
