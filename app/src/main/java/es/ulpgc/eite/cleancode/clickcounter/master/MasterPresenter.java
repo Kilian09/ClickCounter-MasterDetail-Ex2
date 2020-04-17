@@ -87,6 +87,7 @@ public class MasterPresenter implements MasterContract.Presenter {
     @Override
     public void selectProductListData(CounterData item) {
         router.navigateToDetailScreen();
+        model.clickSum();
         router.passDataToDetailScreen(item);
     }
 

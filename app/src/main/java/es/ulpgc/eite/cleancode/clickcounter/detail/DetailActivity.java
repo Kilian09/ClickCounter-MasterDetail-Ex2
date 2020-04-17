@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import es.ulpgc.eite.cleancode.clickcounter.R;
+import es.ulpgc.eite.cleancode.clickcounter.data.CounterData;
 
 public class DetailActivity
         extends AppCompatActivity implements DetailContract.View {
@@ -73,8 +74,8 @@ public class DetailActivity
 
         // deal with the data
         ((TextView) findViewById(R.id.counter)).setText(viewModel.data);
-        //int count = viewModel.currentCounter.value;
-        //((TextView) findViewById(R.id.counter)).setText(Integer.toString(count));
+        CounterData counterData = viewModel.currentCounter;
+        ((TextView) findViewById(R.id.counter)).setText(Integer.valueOf(counterData.value));
         //((TextView) findViewById(R.id.clicks)).setText(Integer.toString(viewModel.clicks));
     }
 

@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.clickcounter.app.DetailToMasterState;
 import es.ulpgc.eite.cleancode.clickcounter.app.MasterToDetailState;
+import es.ulpgc.eite.cleancode.clickcounter.data.CounterData;
 
 public interface DetailContract {
 
@@ -36,7 +37,7 @@ public interface DetailContract {
   }
 
   interface Model {
-    String getStoredData();
+    CounterData getStoredData();
 
     void onDataFromNextScreen(String data);
 

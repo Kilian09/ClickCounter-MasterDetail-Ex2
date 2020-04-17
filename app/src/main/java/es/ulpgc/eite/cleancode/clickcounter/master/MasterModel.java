@@ -44,8 +44,8 @@ public class MasterModel implements MasterContract.Model {
         // Log.e(TAG, "onDataFromPreviousScreen()");
     }
 
-
-    private int clickSum() {
+    @Override
+    public int clickSum() {
         int sum = 0;
         for (CounterData counterData : datasource) {
             {

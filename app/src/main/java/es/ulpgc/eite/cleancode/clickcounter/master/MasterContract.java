@@ -50,6 +50,8 @@ public interface MasterContract {
         void onRestartScreen(List<CounterData> datasource);
 
         void onDataFromPreviousScreen(String data);
+
+        int clickSum();
     }
 
     interface Router {
